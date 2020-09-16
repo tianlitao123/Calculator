@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 科学计算器-->
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/gridlayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/seashell"
+    android:alignmentMode="alignBounds"
+    android:columnCount="10"
+    android:orientation="horizontal"
+    android:rowCount="6"
+    android:useDefaultMargins="false"
+    tools:context="com.example.calculator.MainActivity">
+
+    <EditText
+        android:id="@+id/printf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_columnSpan="10"
+        android:layout_gravity="fill"/>
+
+    <Button
+        android:id="@id/left_bracket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="("
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/right_bracket"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text=")"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/memory_clear"
+        android:layout_row="1"
+        android:layout_column="2"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="mc"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/add_to_storage"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="3"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="m+"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/minus_to_storage"
+        android:layout_row="1"
+        android:layout_column="4"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="m-"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/memory_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="5"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="mr"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <!---->
+    <Button
+        android:id="@id/second_function"
+        android:layout_height="wrap_content"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="2nd"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/x_square"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="x^2"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/x_cube"
+        android:layout_row="2"
+        android:layout_column="2"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="x^3"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/x_power_y"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_row="2"
+        android:layout_column="3"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="x^y"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/e_power_x"
+        android:layout_row="2"
+        android:layout_column="4"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="e^x"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/ten_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="2"
+        android:layout_column="5"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="10^x"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <!---->
+    <Button
+        android:id="@id/one_x"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="1/x"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/x_power_one_two"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="x^1/2"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/x_power_one_three"
+        android:layout_row="3"
+        android:layout_column="2"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="x^1/3"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/x_power_one_y"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_row="3"
+        android:layout_column="3"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="x^1/y"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/ln"
+        android:layout_row="3"
+        android:layout_column="4"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="ln"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/log10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="3"
+        android:layout_column="5"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="log10"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <!---->
+    <Button
+        android:id="@id/x_factorial"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="x!"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/sin_function"
+        android:layout_row="4"
+        android:layout_column="1"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="sin"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/cos_function"
+        android:layout_row="4"
+        android:layout_column="2"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="cos"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/tan_function"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_row="4"
+        android:layout_column="3"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="tan"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/e"
+        android:layout_row="4"
+        android:layout_column="4"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="e"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/EE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="4"
+        android:layout_column="5"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="EE"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <!---->
+    <Button
+        android:id="@id/Rad"
+        android:layout_row="5"
+        android:layout_column="0"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="Rad"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/sinh"
+        android:layout_row="5"
+        android:layout_column="1"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="sinh"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/cosh"
+        android:layout_row="5"
+        android:layout_column="2"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="cosh"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/tanh"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_row="5"
+        android:layout_column="3"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="tanh"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/π"
+        android:layout_row="5"
+        android:layout_column="4"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="π"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Rand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="5"
+        android:layout_column="5"
+        android:layout_margin="2dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="Rand"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <!---->
+    <Button
+        android:id="@id/AC"
+        android:layout_row="1"
+        android:layout_column="6"
+        android:layout_margin="2dp"
+        android:background="@color/ivory"
+        android:gravity="center"
+        android:text="AC"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/positiveandnegative"
+        android:layout_row="1"
+        android:layout_column="7"
+        android:layout_margin="2dp"
+        android:background="@color/ivory"
+        android:gravity="center"
+        android:text="+/-"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/percent_sign"
+        android:layout_row="1"
+        android:layout_column="8"
+        android:layout_margin="8dp"
+        android:background="@color/ivory"
+        android:gravity="center"
+        android:text="%"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/division_sign"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="9"
+        android:layout_margin="8dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="÷"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Number_7"
+        android:layout_row="2"
+        android:layout_column="6"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="7"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Number_8"
+        android:layout_row="2"
+        android:layout_column="7"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="8"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Number_9"
+        android:layout_row="2"
+        android:layout_column="8"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="9"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/multiply_sign"
+        android:layout_row="2"
+        android:layout_column="9"
+        android:layout_margin="8dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="×"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Number_4"
+        android:layout_row="3"
+        android:layout_column="6"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="4"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Number_5"
+        android:layout_row="3"
+        android:layout_column="7"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="5"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Number_6"
+        android:layout_row="3"
+        android:layout_c    olumn="8"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="6"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/minus_sign"
+        android:layout_row="3"
+        android:layout_column="9"
+        android:layout_margin="8dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="-"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <Button
+        android:id="@id/Number_1"
+        android:layout_row="4"
+        android:layout_column="6"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Number_2"
+        android:layout_row="4"
+        android:layout_column="7"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/Number_3"
+        android:layout_row="4"
+        android:layout_column="8"
+        android:layout_margin="8dp"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="3"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <Button
+        android:id="@id/plus_sign"
+        android:layout_row="4"
+        android:layout_column="9"
+        android:layout_margin="8dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <Button
+        android:id="@id/Number_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="5"
+        android:layout_column="6"
+        android:layout_margin="8dp"
+        android:layout_columnSpan="2"
+        android:layout_gravity="fill"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <Button
+        android:id="@id/radix_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="5"
+        android:layout_column="8"
+        android:layout_margin="8dp"
+        android:layout_gravity="fill"
+        android:background="@color/darkslategrey"
+        android:gravity="center"
+        android:text="."
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <Button
+        android:id="@id/equal_sign"
+        android:layout_row="5"
+        android:layout_column="9"
+        android:layout_margin="8dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="="
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</GridLayout>
