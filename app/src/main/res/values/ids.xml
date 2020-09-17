@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="gridlayout" type="id" />
-    <item name="AC" type="id" />
-    <item name="positiveandnegative" type="id" />
-    <item name="division_sign" type="id" />
-    <item name="percent_sign" type="id" />
-    <item name="Number_7" type="id" />
-    <item name="Number_8" type="id" />
-    <item name="Number_9" type="id" />
-    <item name="Number_4" type="id" />
-    <item name="Number_5" type="id" />
-    <item name="Number_6" type="id" />
-    <item name="Number_1" type="id" />
-    <item name="Number_2" type="id" />
-    <item name="Number_3" type="id" />
-    <item name="Number_0" type="id" />
-    <item name="multiply_sign" type="id" />
-    <item name="minus_sign" type="id" />
-    <item name="plus_sign" type="id" />
-    <item name="radix_point" type="id" />
-    <item name="equal_sign" type="id" />
+    <!--普通计算器-->
+    <item name="Number_0" type="id" value="0" />
+    <item name="Number_1" type="id" value="1" />
+    <item name="Number_2" type="id" value="2" />
+    <item name="Number_3" type="id" value="3" />
+    <item name="Number_4" type="id" value="4" />
+    <item name="Number_5" type="id" value="5" />
+    <item name="Number_6" type="id" value="6" />
+    <item name="Number_7" type="id" value="7" />
+    <item name="Number_8" type="id" value="8" />
+    <item name="Number_9" type="id" value="9" />
+    <item name="AC" type="id" value="AC" />
+    <item name="positiveandnegative" type="id" value="+/-" />
+    <item name="plus_sign" type="id" value="+" />
+    <item name="minus_sign" type="id" value="-" />
+    <item name="multiply_sign" type="id" value="*" />
+    <item name="divide_sign" type="id" value="÷" />
+    <item name="percent_sign" type="id" value="%" />
+    <item name="radix_point" type="id" value="." />
+    <item name="equal_sign" type="id" value="=" />
+    <!--普通计算器-->
+
+    <!--科学计算器-->
     <item name="left_bracket" type="id" />
     <item name="right_bracket" type="id" />
     <item name="memory_read" type="id" />
@@ -50,4 +54,5 @@
     <item name="tanh" type="id" />
     <item name="π" type="id" />
     <item name="Rand" type="id" />
+    <!--科学计算器-->
 </resources>
