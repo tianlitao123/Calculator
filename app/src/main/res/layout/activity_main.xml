@@ -56,7 +56,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@id/division_sign"
+        android:id="@id/divide_sign"
         android:layout_height="wrap_content"
         android:layout_row="1"
         android:layout_column="3"

@@ -432,7 +432,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@id/division_sign"
+        android:id="@id/divide_sign"
         android:layout_height="wrap_content"
         android:layout_row="1"
         android:layout_column="9"
@@ -512,7 +512,7 @@
     <Button
         android:id="@id/Number_6"
         android:layout_row="3"
-        android:layout_c    olumn="8"
+        android:layout_column="8"
         android:layout_margin="8dp"
         android:background="@color/darkslategrey"
         android:gravity="center"
