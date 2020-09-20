@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String str = et_input.getText().toString();//XML输入
         String strButton = btn.getText().toString();//按钮按下获得的文本
         switch (view.getId()) {
+            //当按下清零号时的情况
+            case R.id.AC:
+                et_input.setText("0");
+                //System.out.println(et_input.getText());
+                break;
             //当按下数字和小数点时所响应的情况
             case R.id.Number_0:
             case R.id.Number_1:
@@ -52,10 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else
                     et_input.setText(str + strButton);
                     //System.out.println(et_input.getText());
-                break;
-            case R.id.AC:
-                et_input.setText("0");
-                //System.out.println(et_input.getText());
                 break;
             case R.id.plus_sign:
             case R.id.minus_sign:
