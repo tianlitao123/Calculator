@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,13 +52,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.Number_7:
             case R.id.Number_8:
             case R.id.Number_9:
-            case R.id.radix_point:
+                //若当前输入数为0则设置文本编辑框为””
                 if (str.equals("0")) {
                     et_input.setText(strButton);
                     //System.out.println(et_input.getText());
                 } else
                     et_input.setText(str + strButton);
                     //System.out.println(et_input.getText());
+                break;
+            case R.id.radix_point:
+                //若当前输入数为0则设置文本编辑框为””
+                if (str.equals("0")) {
+                    et_input.setText("0"+strButton);
+                    //System.out.println(et_input.getText());
+                } else
+                    et_input.setText(str + strButton);
+                //System.out.println(et_input.getText());
                 break;
             case R.id.plus_sign:
             case R.id.minus_sign:
@@ -74,7 +85,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
             case R.id.percent_sign:
-                et_input.setText("");
+                Double data1 = Double.parseDouble(et_input.getText().toString());
+                if(et_input.getText()!=null) {
+                    data1 = 0.01*data1;
+                    str = String.valueOf(data1);
+                    et_input.setText(str);
+                    break;
+                }
             case R.id.equal_sign:
                 MyCalc obj = new MyCalc(str);
                 double ret = obj.Calc();
@@ -97,25 +114,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         public MyCalc(String input) {
             this.input = input;
+            // 预处理
+            this.input = (input).replaceAll(" ", "");// 去空格
+            if ('-' == input.charAt(0)) {// 开头为负数，如-1，改为0-1
+                this.input = 0 + this.input;
+            }
         }
-
         public double Calc() {
             if (TextUtils.isEmpty(input))
                 return 0;
-            Pattern pattern = Pattern.compile("[+(×)(÷)/-]"); //pattern.compile提取一段字符串中特定范围内的内容
+            Pattern pattern = Pattern.compile("[+×÷-]"); //pattern.compile提取一段字符串中特定范围内的内容
+            Pattern pattern1 = null;
+            //Pattern pattern2 = null;
             String[] nums = pattern.split(input);//将+、-、×、÷、%断开分割成字符串对象数组，留下数字
+            if(nums.length==2) {
+                pattern1 = Pattern.compile("\\d*");
+                //pattern1 = Pattern.compile(nums[1]);//pattern.compile提取一段字符串中特定范围内的内容
+            }
+            else if(nums.length==3) {
+                double third = Double.parseDouble(nums[2]);
+                pattern1 = Pattern.compile("\\d*");
+            }
+
+            String[] fuhao = pattern1.split(input);
+            for(String s: fuhao){
+                System.out.println(fuhao);
+            }
+            ArrayList<String> fuhao1 = new ArrayList<String>();
+            for(int i=0;i<fuhao.length;i++)
+            {
+               if("".equals(fuhao[i])){
+                   continue;
+               }
+                else if(".".equals(fuhao[i])){
+                    continue;
+                }
+                else {
+                   fuhao1.add(fuhao[i]);
+               }
+            }
             Matcher matcher = pattern.matcher(input);//返回matcher对象,
-
-
             if (matcher.find() == false)//调用matcher.find判断input里是否含有+、-、×、÷如果没有+、-、×、÷，返回
                 return 0;
-            String op = matcher.group(0);//返回匹配得到的字符串。
-             /* System.out.println(input);
-            System.out.println(pattern);
-            System.out.println(nums[0] + nums[1]);
-            System.out.println(matcher);
-            System.out.println(matcher.matches());*/
-            //System.out.println(op);
+            String op = matcher.group();//返回匹配得到的字符串。
             double first = Double.parseDouble(nums[0]);
             double second = Double.parseDouble(nums[1]);
             double sum = 0;
@@ -126,6 +167,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         sum = first + second;
                         break;
                     case "-":
+                        if(nums.length==3){
+                            double third = Double.parseDouble(nums[2]);
+                            if(fuhao1.get(1).equals("+"))
+                                sum = first - second+third;
+                            else if(fuhao1.get(1).equals("-"))
+                                sum = first - second-third;
+                            else if(fuhao1.get(1).equals("×"))
+                                sum = (first - second)*third;
+                            else if(fuhao1.get(1).equals("÷"))
+                                sum = (first - second)/third;
+                        }
+                        else
                         sum = first - second;
                         break;
                     case "×":
