@@ -54,5 +54,10 @@
     <item name="tanh" type="id" />
     <item name="π" type="id" />
     <item name="Rand" type="id" />
+    <item name="conversion" type="id" />
+    <item name="conversion_length" type="id" />
+    <item name="conversion_volume" type="id" />
+    <item name="conversion_base" type="id" />
+    <item name="back" type="id" />
     <!--科学计算器-->
 </resources>
