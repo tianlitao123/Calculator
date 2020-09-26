@@ -59,5 +59,10 @@
     <item name="conversion_volume" type="id" />
     <item name="conversion_base" type="id" />
     <item name="back" type="id" />
+    <item name="conversion_rate" type="id" />
+    <item name="cal_date" type="id" />
+    <item name="cal_history" type="id" />
+    <item name="currentButton" type="id" />
+    <item name="currentButton1" type="id" />
     <!--科学计算器-->
 </resources>

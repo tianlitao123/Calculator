@@ -2,6 +2,7 @@ package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.IllegalFormatCodePointException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             int ids[] = {R.id.Number_0, R.id.Number_1, R.id.Number_2, R.id.Number_3, R.id.Number_4, R.id.Number_5, R.id.Number_6,
                     R.id.Number_7, R.id.Number_8, R.id.Number_9, R.id.radix_point, R.id.AC, R.id.positiveandnegative, R.id.percent_sign,
-                    R.id.divide_sign, R.id.multiply_sign, R.id.minus_sign, R.id.plus_sign, R.id.equal_sign, R.id.left_bracket, R.id.right_bracket, R.id.memory_clear, R.id.conversion_base, R.id.minus_to_storage, R.id.memory_read,
+                    R.id.divide_sign, R.id.multiply_sign, R.id.minus_sign, R.id.plus_sign, R.id.equal_sign, R.id.left_bracket, R.id.right_bracket,
+                    R.id.conversion_rate, R.id.conversion_base, R.id.cal_date, R.id.cal_history,
                     R.id.second_function, R.id.x_square, R.id.x_cube, R.id.conversion_volume, R.id.e_power_x, R.id.ten_x, R.id.one_x, R.id.x_power_one_two,
                     R.id.x_power_one_three, R.id.conversion_length, R.id.ln, R.id.log10, R.id.x_factorial, R.id.sin_function, R.id.cos_function, R.id.tan_function,
                     R.id.e, R.id.EE, R.id.Rad, R.id.sinh, R.id.cosh, R.id.tanh, R.id.π, R.id.Rand};//科学计算器按钮数组
@@ -44,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (int i = 0; i < ids.length; i++)
                 findViewById(ids[i]).setOnClickListener(this);//给每个按钮设置一个监听事件
         }
-        findViewById(R.id.back).setOnClickListener(this);
         /*int[] ids = {R.id.Number_0, R.id.Number_1, R.id.Number_2, R.id.Number_3, R.id.Number_4, R.id.Number_5, R.id.Number_6,
                 R.id.Number_7, R.id.Number_8, R.id.Number_9, R.id.radix_point, R.id.AC, R.id.positiveandnegative, R.id.percent_sign,
                 R.id.divide_sign, R.id.multiply_sign, R.id.minus_sign, R.id.plus_sign, R.id.equal_sign,//普通计算器按钮数组
@@ -66,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){   //item.getItemId()判断我们选择那个菜单项
             case R.id.add_help:
-                setContentView(R.layout.help);
+                Intent intent=new Intent(MainActivity.this,HelpActivity.class);
+                startActivityForResult(intent,0);
                 break;
             default:
         }
@@ -339,13 +342,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     et_input.setText(str + "dm³=" + str1 + "m³=" + str2 + "cm³=" + str3 + "mm³");
                     break;
                 }
-            case R.id.back:
-                int orientation = getResources().getConfiguration().orientation;
-                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    setContentView(R.layout.scientific_calculator);
-                }
-                else if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    setContentView(R.layout.activity_main);
+            case R.id.conversion_rate:
+                Intent intent=new Intent(MainActivity.this,RateActivity.class);
+                startActivityForResult(intent,1);
+                break;
+            case R.id.cal_date:
+                if (et_input.getText() != null) {
+                    Date date = new Date();
+                    et_input.setText(date.toString());
+                    break;
                 }
         }
     }
@@ -369,6 +374,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Pattern pattern = Pattern.compile("[+×÷-]"); //pattern.compile提取一段字符串中特定范围内的内容
             Pattern pattern1 = null;
             //Pattern pattern2 = null;
+            if(input.contains("("))
+            {
+                // 找出最后一个左括号
+                int left = input.lastIndexOf("(");
+                // 找出第一个右括号
+                int right = input.indexOf(")");
+                input = input.substring(left + 1, right);
+            }
             String[] nums = pattern.split(input);//将+、-、×、÷、%断开分割成字符串对象数组，留下数字
             if (nums.length == 2) {
                 pattern1 = Pattern.compile("\\d*");
