@@ -41,12 +41,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
+        android:background="@color/aqua"
         ></Button>
     <Button
         android:id="@id/currentButton1"
         android:text="显示"
         android:onClick="onClick"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></Button>
+        android:layout_height="wrap_content"
+        android:background="@color/white"></Button>
 
 </LinearLayout>
