@@ -1,9 +1,11 @@
 package com.example.calculator;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -14,7 +16,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.IllegalFormatCodePointException;
@@ -32,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int ids[] = {R.id.Number_0, R.id.Number_1, R.id.Number_2, R.id.Number_3, R.id.Number_4, R.id.Number_5, R.id.Number_6,
                     R.id.Number_7, R.id.Number_8, R.id.Number_9, R.id.radix_point, R.id.AC, R.id.positiveandnegative, R.id.percent_sign,
                     R.id.divide_sign, R.id.multiply_sign, R.id.minus_sign, R.id.plus_sign, R.id.equal_sign, R.id.left_bracket, R.id.right_bracket,
-                    R.id.conversion_rate, R.id.conversion_base, R.id.cal_date, R.id.cal_history,
-                    R.id.second_function, R.id.x_square, R.id.x_cube, R.id.conversion_volume, R.id.e_power_x, R.id.ten_x, R.id.one_x, R.id.x_power_one_two,
+                    R.id.conversion_rate, R.id.conversion_base, R.id.cal_date, R.id.cal_history_Read,
+                    R.id.cal_history_Write, R.id.x_square, R.id.x_cube, R.id.conversion_volume, R.id.e_power_x, R.id.ten_x, R.id.one_x, R.id.x_power_one_two,
                     R.id.x_power_one_three, R.id.conversion_length, R.id.ln, R.id.log10, R.id.x_factorial, R.id.sin_function, R.id.cos_function, R.id.tan_function,
                     R.id.e, R.id.EE, R.id.Rad, R.id.sinh, R.id.cosh, R.id.tanh, R.id.π, R.id.Rand};//科学计算器按钮数组
             setContentView(R.layout.scientific_calculator);
@@ -55,26 +64,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 R.id.x_power_one_three,R.id.x_power_one_y,R.id.ln, R.id.log10,R.id.x_factorial,R.id.sin_function,R.id.cos_function,R.id.tan_function,
                 R.id.e,R.id.EE,R.id.Rad,R.id.sinh,R.id.cosh, R.id.tanh,R.id.π,R.id.Rand};//科学计算器按钮数组*/
     }
+
     //用onCreateOptionsMenu（）显示菜单
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);//getMenuInflater()方法得到MenuInflater
+        getMenuInflater().inflate(R.menu.menu, menu);//getMenuInflater()方法得到MenuInflater
         //调用inflate接收两个参数
         //R.menu.main指调用menu文件下的main资源文件
         return true;//返回true，允许创建的菜单显示,返回false不显示
     }
+
     //定义菜单响应事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){   //item.getItemId()判断我们选择那个菜单项
+        switch (item.getItemId()) {   //item.getItemId()判断我们选择那个菜单项
             case R.id.add_help:
-                Intent intent=new Intent(MainActivity.this,HelpActivity.class);
-                startActivityForResult(intent,0);
+                Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+                startActivityForResult(intent, 0);
                 break;
             default:
         }
         return true;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View view) {
         EditText et_input = (EditText) findViewById(R.id.printf);
@@ -315,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int num = Integer.parseInt(str);
                 if (et_input.getText() != null) {
                     str = String.valueOf(data20);
-                    et_input.setText("十进制为："+str+"二进制为："+s1.fun(2,num)+"八进制为："+s1.fun(8,num)+"十六进制为："+s1.fun(16,num));
+                    et_input.setText("十进制为：" + str + "二进制为：" + s1.fun(2, num) + "八进制为：" + s1.fun(8, num) + "十六进制为：" + s1.fun(16, num));
                     /*+"八进制为："+JinZhi.fun(8,Integer.parseInt(String.valueOf(data20)))+"十六进制为："+JinZhi.fun(16,Integer.parseInt(String.valueOf(data20)))*/
                     /*JinZhi.fun(2,Integer.parseInt(String.valueOf(data20)));*/
                     break;
@@ -343,8 +356,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
             case R.id.conversion_rate:
-                Intent intent=new Intent(MainActivity.this,RateActivity.class);
-                startActivityForResult(intent,1);
+                Intent intent = new Intent(MainActivity.this, RateActivity.class);
+                startActivityForResult(intent, 1);
                 break;
             case R.id.cal_date:
                 if (et_input.getText() != null) {
@@ -352,6 +365,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     et_input.setText(date.toString());
                     break;
                 }
+            case R.id.cal_history_Write:
+                OutputStream out = null;
+                try {
+                    String HistoryFile = "HistoryFile.txt";
+                    FileOutputStream fileOutputStream = openFileOutput(HistoryFile, MODE_PRIVATE);
+                    out = new BufferedOutputStream(fileOutputStream);
+                    String content = str;
+                    try {
+                        out.write(content.getBytes(StandardCharsets.UTF_8));
+                    } finally {
+                        if (out != null)
+                            out.flush();
+                        out.close();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.cal_history_Read:
+                InputStream in = null;
+                String HistoryFile = "HistoryFile.txt";
+                try {
+                    FileInputStream fileInputStream = openFileInput(HistoryFile);
+                    in = new BufferedInputStream(fileInputStream);
+                    byte b[] = new byte[1024];
+                    int len = 0;
+                    int temp = 0;            // 接收每一个读取进来的数据
+                   /* int c;
+                    StringBuilder stringBuilder=new StringBuilder("");*/
+                    try {
+                        while ((temp = in.read()) != -1) {
+                            // 表示还有内容，文件没有读完
+                            b[len] = (byte) temp;
+                            len++;
+                            et_input.setText(new String(b,0,len));
+                            Toast.makeText(MainActivity.this, et_input.getText().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    } finally {
+                        if (in != null)
+                            in.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
         }
     }
 
@@ -361,11 +421,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         public MyCalc(String input) {
             this.input = input;
-            // 预处理
-            this.input = (input).replaceAll(" ", "");// 去空格
-            if ('-' == input.charAt(0)) {// 开头为负数，如-1，改为0-1
-                this.input = 0 + this.input;
-            }
         }
 
         public double Calc() {
@@ -374,13 +429,84 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Pattern pattern = Pattern.compile("[+×÷-]"); //pattern.compile提取一段字符串中特定范围内的内容
             Pattern pattern1 = null;
             //Pattern pattern2 = null;
-            if(input.contains("("))
-            {
+            if (input.contains("(")) {
+                this.input = (input).replaceAll(" ", "");// 去空格
+                if ('-' == input.charAt(0)) {// 开头为负数，如-1，改为0-1
+                    this.input = 0 + this.input;
+                }
                 // 找出最后一个左括号
                 int left = input.lastIndexOf("(");
                 // 找出第一个右括号
                 int right = input.indexOf(")");
-                input = input.substring(left + 1, right);
+                String kuohao = null;
+                String kuohao1 = null;
+                kuohao1=input.substring(left, right+1);
+                kuohao = input.substring(left + 1, right);
+                if ('-' == kuohao.charAt(0)) {// 开头为负数，如-1，改为0-1
+                    kuohao = 0 + kuohao;
+                }
+                String[] num = pattern.split(kuohao);
+                if (num.length == 2) {
+                    pattern1 = Pattern.compile("\\d*");
+                    //pattern1 = Pattern.compile(nums[1]);//pattern.compile提取一段字符串中特定范围内的内容
+                } else if (num.length == 3) {
+                    double third1 = Double.parseDouble(num[2]);
+                    pattern1 = Pattern.compile("\\d*");
+                }
+                String[] fuhao2 = pattern1.split(kuohao);
+                ArrayList<String> fuhao3 = new ArrayList<String>();
+                for (int i = 0; i < fuhao2.length; i++) {
+                    if ("".equals(fuhao2[i])) {
+                        continue;
+                    } else if (".".equals(fuhao2[i])) {
+                        continue;
+                    } else {
+                        fuhao3.add(fuhao2[i]);
+                    }
+                }
+                Matcher matcher1 = pattern.matcher(kuohao);//返回matcher对象,
+                if (matcher1.find() == false)//调用matcher.find判断input里是否含有+、-、×、÷如果没有+、-、×、÷，返回
+                    return 0;
+                String op = matcher1.group();//返回匹配得到的字符串。
+                double first1 = Double.parseDouble(num[0]);
+                double second1 = Double.parseDouble(num[1]);
+                double sum1 = 0;
+                try {
+                    switch (op) {
+                        case "+":
+                            sum1 = first1 + second1;
+                            break;
+                        case "-":
+                            if (num.length == 3) {
+                                double third1 = Double.parseDouble(num[2]);
+                                if (fuhao3.get(1).equals("+"))
+                                    sum1 = first1 - second1 + third1;
+                                else if (fuhao3.get(1).equals("-"))
+                                    sum1 = first1 - second1 - third1;
+                                else if (fuhao3.get(1).equals("×"))
+                                    sum1 = (first1 - second1) * third1;
+                                else if (fuhao3.get(1).equals("÷"))
+                                    sum1 = (first1 - second1) / third1;
+                            } else
+                                sum1 = first1 - second1;
+                            break;
+                        case "×":
+                            sum1 = first1 * second1;
+                            break;
+                        case "÷":
+                            sum1 = first1 / second1;
+                            break;
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "出错", Toast.LENGTH_LONG).show();
+                }
+                String Sam1 = "";
+                Sam1 = String.valueOf(sum1);
+                input = input.replace(kuohao1,Sam1);
+            }
+            this.input = (input).replaceAll(" ", "");// 去空格
+            if ('-' == input.charAt(0)) {// 开头为负数，如-1，改为0-1
+                this.input = 0 + this.input;
             }
             String[] nums = pattern.split(input);//将+、-、×、÷、%断开分割成字符串对象数组，留下数字
             if (nums.length == 2) {
@@ -425,8 +551,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 sum = first - second + third;
                             else if (fuhao1.get(1).equals("-"))
                                 sum = first - second - third;
-                            else if (fuhao1.get(1).equals("×"))
-                                sum = (first - second) * third;
+                            else if(fuhao1.get(1).equals("×")){
+                                    sum = (first - second) * third;
+                            }
                             else if (fuhao1.get(1).equals("÷"))
                                 sum = (first - second) / third;
                         } else
@@ -443,10 +570,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "出错", Toast.LENGTH_LONG).show();
             }
             return sum;
+
         }
     }
 
-    public  class JinZhi {
+    public class JinZhi {
         // 十进制转换为 n 进制
         public String fun(int n, int num) {
             // n 表示目标进制, num 要转换的值

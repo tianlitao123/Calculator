@@ -64,5 +64,7 @@
     <item name="cal_history" type="id" />
     <item name="currentButton" type="id" />
     <item name="currentButton1" type="id" />
+    <item name="cal_history_Write" type="id" />
+    <item name="cal_history_Read" type="id" />
     <!--科学计算器-->
 </resources>
